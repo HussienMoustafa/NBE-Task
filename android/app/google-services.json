@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "110188399755",
+    "firebase_url": "https://nbe-reactnative-default-rtdb.firebaseio.com",
+    "project_id": "nbe-reactnative",
+    "storage_bucket": "nbe-reactnative.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:110188399755:android:65f4cf0911aadb25c3d88e",
+        "android_client_info": {
+          "package_name": "com.task3"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "110188399755-k2rhlt70hbpev98udrchh5foc10vi511.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyASJzxBWqWWim6vrU_pl15Xb_gIgPuSjqY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "110188399755-k2rhlt70hbpev98udrchh5foc10vi511.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
