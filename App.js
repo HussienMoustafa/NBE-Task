@@ -36,6 +36,7 @@ import {toggleLanguage} from './redux/languageSlice';
 import BenefeciariesHistoryDisplay from './screens/BenefeciariesHistoryDisplay/BenefeciariesHistoryDisplay';
 import {setUserDefaultValues, setUserId} from './redux/userSlice';
 import {setBenefeciaries} from './redux/benefeciariesSlice';
+import {SheetProvider} from 'react-native-actions-sheet';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -405,22 +406,24 @@ const App = () => {
     <>
       <StatusBar hidden={true} translucent={true} />
       <Provider store={store}>
-        <NavigationContainer>
-          <Stack.Navigator
-            screenOptions={{
-              headerShown: false,
-              // statusBarHidden: true,
-              // statusBarTranslucent: true,
-            }}>
-            <Stack.Screen name="Splash" component={Splash} />
-            <Stack.Screen name="Login" component={Login} />
-            <Stack.Screen name="Mobile Number" component={MobileNumber} />
-            <Stack.Screen name="Verification" component={Verification} />
-            <Stack.Screen name="Set Password" component={SetPassword} />
-            <Stack.Screen name="Finish" component={Finish} />
-            <Stack.Screen name="Drawer" component={MyDrawer} />
-          </Stack.Navigator>
-        </NavigationContainer>
+        <SheetProvider>
+          <NavigationContainer>
+            <Stack.Navigator
+              screenOptions={{
+                headerShown: false,
+                // statusBarHidden: true,
+                // statusBarTranslucent: true,
+              }}>
+              <Stack.Screen name="Splash" component={Splash} />
+              <Stack.Screen name="Login" component={Login} />
+              <Stack.Screen name="Mobile Number" component={MobileNumber} />
+              <Stack.Screen name="Verification" component={Verification} />
+              <Stack.Screen name="Set Password" component={SetPassword} />
+              <Stack.Screen name="Finish" component={Finish} />
+              <Stack.Screen name="Drawer" component={MyDrawer} />
+            </Stack.Navigator>
+          </NavigationContainer>
+        </SheetProvider>
       </Provider>
       {/* <ScrollView> */}
       {/* <View></View> */}

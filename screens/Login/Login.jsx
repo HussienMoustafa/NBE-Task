@@ -26,15 +26,19 @@ import {bgImage} from '../../assets/Images/BgImages/BgImages';
 import {AR, EN} from '../../assets/Images/Language/Language';
 import {nbe} from '../../assets/Images/NBE/NBE';
 import PasswordInput from '../../components/PasswordInput/PasswordInput';
+import {SheetManager} from 'react-native-actions-sheet';
 
 export default function Login({navigation}) {
   function openFingerPrint() {
-    setFingerPrintVisible(true);
+    // setFingerPrintVisible(true);
+    SheetManager.show('fingerprint', {
+      payload: {title: strings.fingerPrintLogin},
+    });
   }
 
-  function closeFingerPrint() {
-    setFingerPrintVisible(false);
-  }
+  // function closeFingerPrint() {
+  //   setFingerPrintVisible(false);
+  // }
 
   async function loginHandler() {
     try {
@@ -182,11 +186,11 @@ export default function Login({navigation}) {
                   title={strings.fingerPrintLogin}
                 />
               )} */}
-              <FingerPrint
-                visible={isFingerPrintVisible}
-                closeFingerPrint={closeFingerPrint}
+              {/* <FingerPrint
+                // visible={isFingerPrintVisible}
+                // closeFingerPrint={closeFingerPrint}
                 title={strings.fingerPrintLogin}
-              />
+              /> */}
             </View>
             <View
               style={[

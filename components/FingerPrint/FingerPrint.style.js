@@ -8,6 +8,7 @@ const styles = StyleSheet.create({
   },
   innerContainer: {
     padding: 16,
+    paddingBottom: 40,
     borderTopRightRadius: 30,
     borderTopLeftRadius: 30,
     backgroundColor: '#FFFFFF',

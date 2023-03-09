@@ -13,17 +13,24 @@ import strings from '../../assets/Language/AuthNames';
 import {useSelector} from 'react-redux';
 import {balanceBg} from '../../assets/Images/BalanceBg/BalanceBg';
 import {fingerprint2} from '../../assets/Images/FingerPrint/FingerPrint';
+import {SheetManager} from 'react-native-actions-sheet';
 
 export default function BalanceCard() {
   const userBalance = useSelector(state => state.user.balance);
 
+  // function openFingerPrint() {
+  //   setFingerPrintVisible(true);
+  // }
   function openFingerPrint() {
-    setFingerPrintVisible(true);
+    // setFingerPrintVisible(true);
+    SheetManager.show('fingerprint', {
+      payload: {title: 'Show Balance'},
+    });
   }
 
-  function closeFingerPrint() {
-    setFingerPrintVisible(false);
-  }
+  // function closeFingerPrint() {
+  //   setFingerPrintVisible(false);
+  // }
   function balanceHandler() {
     showBalance(true);
   }
@@ -57,12 +64,12 @@ export default function BalanceCard() {
                 />
               </Pressable>
             </View>
-            {isFingerPrintVisible && (
+            {/* {isFingerPrintVisible && (
               <FingerPrint
                 closeFingerPrint={closeFingerPrint}
                 title={strings.AirPaymentFingerPrint}
               />
-            )}
+            )} */}
           </View>
           <View style={styles.balance}>
             {balance ? (

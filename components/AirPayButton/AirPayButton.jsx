@@ -3,16 +3,23 @@ import React, {useState} from 'react';
 import FingerPrint from '../FingerPrint/FingerPrint';
 import styles from './AirPayButton.style';
 import strings from '../../assets/Language/AuthNames';
+import {SheetManager} from 'react-native-actions-sheet';
 export default function AirPayButton({children, layout, txt, submit}) {
   const [isFingerPrintVisible, setFingerPrintVisible] = useState(false);
 
+  // function openFingerPrint() {
+  //   setFingerPrintVisible(true);
+  // }
   function openFingerPrint() {
-    setFingerPrintVisible(true);
+    // setFingerPrintVisible(true);
+    SheetManager.show('fingerprint', {
+      payload: {title: strings.AirPaymentFingerPrint},
+    });
   }
 
-  function closeFingerPrint() {
-    setFingerPrintVisible(false);
-  }
+  // function closeFingerPrint() {
+  //   setFingerPrintVisible(false);
+  // }
 
   // function submit() {}
   return (
@@ -24,12 +31,16 @@ export default function AirPayButton({children, layout, txt, submit}) {
             <Image source={require('../../assets/Images/fingerprint2.png')} />
           </Pressable>
         </View>
-        {isFingerPrintVisible && (
+        {/* {isFingerPrintVisible && (
           <FingerPrint
             closeFingerPrint={closeFingerPrint}
             title={strings.AirPaymentFingerPrint}
           />
-        )}
+        )} */}
+        {/* <FingerPrint
+          // closeFingerPrint={closeFingerPrint}
+          title={strings.AirPaymentFingerPrint}
+        /> */}
       </Pressable>
     </View>
   );

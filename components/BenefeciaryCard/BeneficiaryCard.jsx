@@ -4,6 +4,7 @@ import BenefeciarModal from '../BenefeciarModal/BenefeciarModal';
 import {useNavigation} from '@react-navigation/native';
 import styles from './BeneficiaryCard.style';
 import strings from '../../assets/Language/AuthNames';
+import {SheetManager} from 'react-native-actions-sheet';
 
 export default function BeneficiaryCard({benefeciar}) {
   const navigation = useNavigation();
@@ -14,12 +15,15 @@ export default function BeneficiaryCard({benefeciar}) {
   const savings = '802,828.61';
 
   function openUserOptions() {
-    setUserOptionsVisible(true);
+    // setUserOptionsVisible(true);
+    SheetManager.show('benefeciarModal', {
+      payload: {benefeciar: benefeciar, navigation: navigation},
+    });
   }
 
-  function closeUserOptions() {
-    setUserOptionsVisible(false);
-  }
+  // function closeUserOptions() {
+  //   setUserOptionsVisible(false);
+  // }
 
   function pressedCardHandler() {
     navigation.navigate(strings.beneficiaries, {
@@ -66,13 +70,13 @@ export default function BeneficiaryCard({benefeciar}) {
           <Pressable onPress={openUserOptions} style={styles.dostImgPress}>
             <Image source={require('../../assets/Images/dots.png')} />
           </Pressable>
-          {userOptionsVisible && (
+          {/* {userOptionsVisible && (
             <BenefeciarModal
               userOptionsVisible={userOptionsVisible}
               closeUserOptions={closeUserOptions}
               benefeciar={benefeciar}
             />
-          )}
+          )} */}
         </View>
       </Pressable>
     </View>
