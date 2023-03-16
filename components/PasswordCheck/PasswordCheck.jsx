@@ -19,6 +19,8 @@ import {
 export default function PasswordCheck({password, setPrimaryCheck}) {
   function lowerHelper() {
     setLower(checkLower(password));
+
+    // if (password ==)
   }
   function upperHelper() {
     setUpper(checkUpper(password));

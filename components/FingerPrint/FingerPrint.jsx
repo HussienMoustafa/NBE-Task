@@ -13,8 +13,7 @@ import {useSelector} from 'react-redux';
 import strings from '../../assets/Language/AuthNames';
 import styles from './FingerPrint.style';
 import ActionSheet, {registerSheet} from 'react-native-actions-sheet';
-import {ActionSheetRef} from 'react-native-actions-sheet';
-import {useEffect, useRef} from 'react';
+import {useRef} from 'react';
 
 export default function FingerPrint(props) {
   const currentLanguage = useSelector(state => state.language.value);

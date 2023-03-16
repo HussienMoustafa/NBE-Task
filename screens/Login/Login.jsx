@@ -75,7 +75,7 @@ export default function Login({navigation}) {
   const [userPassword, setUserPassword] = useState('');
   const [togglePassword, setTogglePassword] = useState(false);
 
-  const [isFingerPrintVisible, setFingerPrintVisible] = useState(false);
+  // const [isFingerPrintVisible, setFingerPrintVisible] = useState(false);
 
   return (
     <ScrollView contentContainerStyle={styles.appContainer}>
@@ -179,18 +179,6 @@ export default function Login({navigation}) {
                   />
                 </Pressable>
               </View>
-              {/* {isFingerPrintVisible && (
-                <FingerPrint
-                  visible={isFingerPrintVisible}
-                  closeFingerPrint={closeFingerPrint}
-                  title={strings.fingerPrintLogin}
-                />
-              )} */}
-              {/* <FingerPrint
-                // visible={isFingerPrintVisible}
-                // closeFingerPrint={closeFingerPrint}
-                title={strings.fingerPrintLogin}
-              /> */}
             </View>
             <View
               style={[

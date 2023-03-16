@@ -1,4 +1,11 @@
-import {Image, ScrollView, StyleSheet, Text, View} from 'react-native';
+import {
+  Image,
+  KeyboardAvoidingView,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import React, {useState} from 'react';
 import Title from '../../components/Title/Title';
 import Back from '../../components/BackButton/Back';
@@ -60,6 +67,7 @@ export default function Transfer() {
         <Image source={require('../../assets/Images/nbe2.png')} />
       </View>
       <ScrollView>
+        {/* <KeyboardAvoidingView> */}
         <Title title={'Transfer'} />
         <View style={styles.inputs}>
           {/* <DropDown>Type Of Transfer</DropDown> */}
@@ -89,6 +97,7 @@ export default function Transfer() {
           onPress={transferHandler}>
           Transfer
         </Button>
+        {/* </KeyboardAvoidingView> */}
       </ScrollView>
     </View>
   );

@@ -26,8 +26,7 @@ import {
   transfermoney,
 } from '../../assets/Images/UserCard/UserCard';
 import {fingerprint2} from '../../assets/Images/FingerPrint/FingerPrint';
-import {useNavigation} from '@react-navigation/native';
-import {useRouter} from 'react-native-actions-sheet/dist/src/hooks/use-router';
+import {useSelector} from 'react-redux';
 // {
 //   // userOptionsVisible,
 //   // closeUserOptions,
@@ -40,6 +39,7 @@ export default function BenefeciarModal(props) {
   const firstName = benefeciar.firstName;
   const actionSheetRef = useRef(null);
   const navigation = props.payload.navigation;
+  const userId = useSelector(state => state.user.id);
 
   function transferHandler() {
     actionSheetRef.current?.hide();
@@ -57,7 +57,7 @@ export default function BenefeciarModal(props) {
 
   function deleteBenefeciaryHandler() {
     // console.log(55555);
-    deleteBenefeciary(benefeciar.id);
+    deleteBenefeciary(benefeciar.id, userId);
     // closeUserOptions();
     actionSheetRef.current?.hide();
     navigation.navigate('Benefeciaries');

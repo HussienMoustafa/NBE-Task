@@ -94,8 +94,26 @@ export async function getBenefeciaries(userId) {
   return beneficiares;
 }
 
-export function deleteBenefeciary(benefeciaryId) {
+export async function deleteBenefeciary(benefeciaryId, userId) {
   axios.delete(`${BACKEND_URL}/Benefeciaries/${benefeciaryId}.json`);
+  const response = await axios.get(BACKEND_URL + '/Transactions.json');
+  const transactions = [];
+
+  for (const key in response.data) {
+    if (
+      response.data[key].userId === userId &&
+      response.data[key].benId === benefeciaryId
+    ) {
+      transactions.push(key);
+    }
+  }
+
+  // console.log(transactions);
+
+  for (i in transactions) {
+    // console.log(transactions[i]);
+    axios.delete(`${BACKEND_URL}/Transactions/${transactions[i]}.json`);
+  }
 }
 
 export function storeUser(userData, id) {

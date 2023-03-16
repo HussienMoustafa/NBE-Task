@@ -37,6 +37,8 @@ import BenefeciariesHistoryDisplay from './screens/BenefeciariesHistoryDisplay/B
 import {setUserDefaultValues, setUserId} from './redux/userSlice';
 import {setBenefeciaries} from './redux/benefeciariesSlice';
 import {SheetProvider} from 'react-native-actions-sheet';
+import SplashScreen from 'react-native-splash-screen';
+import {useEffect} from 'react';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -71,6 +73,7 @@ function Main() {
   return (
     <Tab.Navigator
       screenOptions={{
+        // tabBarHideOnKeyboard: true,
         headerShown: false,
         tabBarStyle: {
           transform: currentLanguage === 'ar' ? [{scaleX: -1}] : [{scaleX: 1}],
@@ -402,6 +405,9 @@ function MyDrawer() {
 }
 
 const App = () => {
+  useEffect(() => {
+    SplashScreen.hide();
+  }, []);
   return (
     <>
       <StatusBar hidden={true} translucent={true} />
@@ -414,7 +420,6 @@ const App = () => {
                 // statusBarHidden: true,
                 // statusBarTranslucent: true,
               }}>
-              <Stack.Screen name="Splash" component={Splash} />
               <Stack.Screen name="Login" component={Login} />
               <Stack.Screen name="Mobile Number" component={MobileNumber} />
               <Stack.Screen name="Verification" component={Verification} />

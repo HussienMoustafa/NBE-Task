@@ -40,6 +40,20 @@ export default function Footer() {
       <View>
         <Text style={styles.copyright}>{strings.copyright}</Text>
       </View>
+      {/* <View>
+        <Text style={styles.copyright}>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illo, error
+          sed, veniam voluptas eveniet corporis, eius praesentium quam modi
+          ipsum quod saepe sapiente! Consequatur quia in illum tempore iste
+          culpa. Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere
+          vitae minima non. Ad explicabo nihil tempora architecto itaque sequi
+          eaque mollitia praesentium cumque, fuga iure dolor, sed autem omnis
+          nam. Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim
+          voluptatibus voluptate hic voluptatum velit sapiente, amet
+          consequuntur alias officia nihil, cumque quam repudiandae. Eveniet ad
+          voluptate minus quasi assumenda esse.
+        </Text>
+      </View> */}
     </View>
   );
 }
