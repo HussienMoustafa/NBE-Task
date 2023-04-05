@@ -32,19 +32,20 @@ export default function AddBenefeciaryForm() {
           phoneNumber: '',
           email: '',
         }}
-        onSubmit={(values, actions) => {
+        onSubmit={async (values, actions) => {
           values['userId'] = userId;
-
-          storeBenefeciary(values, response);
+          const status = await storeBenefeciary(values, response).then();
+          // console.log(status);
+          if (status) {
+            navigation.navigate('Verification', {
+              name: `${values.firstName + ' ' + values.lastName} ${
+                strings.beneficiaresadded
+              }`,
+            });
+          }
           // dispatch(addBenefeciary(values));
           // actions.resetForm();
           // dispatch(refreshBenefeciariesList());
-
-          navigation.navigate('Verification', {
-            name: `${values.firstName + ' ' + values.lastName} ${
-              strings.beneficiaresadded
-            }`,
-          });
         }}>
         {({handleChange, handleBlur, handleSubmit, values}) => (
           <>

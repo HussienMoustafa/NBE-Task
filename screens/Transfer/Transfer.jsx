@@ -6,7 +6,7 @@ import {
   Text,
   View,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Title from '../../components/Title/Title';
 import Back from '../../components/BackButton/Back';
 import Button from '../../components/Button/Button';
@@ -27,8 +27,12 @@ export default function Transfer() {
         // id: key,
         benefeciaries[key].firstName + ' ' + benefeciaries[key].lastName;
       // benefeciaries[key].id;
-      ben[benefeciaries[key].firstName + ' ' + benefeciaries[key].lastName] =
-        benefeciaries[key].id;
+      // console.log(benefeciaries[key]);
+      ben[benefeciaries[key].firstName + ' ' + benefeciaries[key].lastName] = {
+        id: benefeciaries[key].id,
+        deviceToken: benefeciaries[key].deviceToken,
+      };
+      // console.log(ben);
       transferTo.push(benefeciary);
     }
     return transferTo;
@@ -40,7 +44,13 @@ export default function Transfer() {
   function transferHandler() {
     // console.log(transTitle, transAmount, userId, transTo);
     // console.log(ben[transTo]);
-    storeTransaction(transTitle, transAmount, userId, ben[transTo]);
+    storeTransaction(
+      transTitle,
+      transAmount,
+      userId,
+      ben[transTo].id,
+      ben[transTo].deviceToken,
+    );
 
     navigation.navigate('Verification', {
       // name: benefeciaries[id].firstName + ' ' + benefeciaries[id].lastName,
@@ -52,13 +62,17 @@ export default function Transfer() {
   const benefeciaries = useSelector(state => state.benefeciaries.value);
   const typeOfTransfer = ['Between your accounts', 'To a benefeciary', 'other'];
   const transferFrom = ['042-653214521245   -   $2,145,5874.25'];
+  // let transferTo = [];
+
   const transferTo = getBenefeciaries();
+  console.log(transferTo);
 
   const [transType, setTypeOfTransfer] = useState();
   const [transFrom, setTransFrom] = useState();
   const [transTo, setTransTo] = useState(transferTo[0]);
   const [transAmount, setTransAmount] = useState();
   const [transTitle, setTransTitle] = useState();
+  // const [benDeviceToken, setBenDeviceToken] = useState(transferTo[0]);
 
   return (
     <View style={styles.container}>

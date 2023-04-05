@@ -27,9 +27,27 @@ import {AR, EN} from '../../assets/Images/Language/Language';
 import {nbe} from '../../assets/Images/NBE/NBE';
 import PasswordInput from '../../components/PasswordInput/PasswordInput';
 import {SheetManager} from 'react-native-actions-sheet';
+import PushNotification from 'react-native-push-notification';
+import {sendPushNotification} from '../../util/http';
+
+function notifyMe() {
+  // console.log(55555);
+  // PushNotification.getChannels(function (channel_ids) {
+  //   console.log(channel_ids); // ['channel_id_1']
+  // });
+  PushNotification.localNotification({
+    channelId: 'channel-id', // (required) channelId, if the channel doesn't exist, notification will not trigger.
+    title: 'My Notification Title', // (optional)
+    message: 'My Notification Message', // (required)
+  });
+}
 
 export default function Login({navigation}) {
   function openFingerPrint() {
+    // notifyMe();
+    sendPushNotification(
+      'd7JHTdVMT9G3MJ3NTQZWq6:APA91bFphqziqsPqeJxyy3ulxKmSVAqtKbrsNvFCQ1NmUmkuT2GDKfbka6koxfBigDUC9sNKuTSmlo5NZc-Kmrrk49Kiq2NKfAAey2pKd3--PAwqT5M3s8gQTtvZJR6sOCbi31eFVxps',
+    );
     // setFingerPrintVisible(true);
     SheetManager.show('fingerprint', {
       payload: {title: strings.fingerPrintLogin},

@@ -20,6 +20,7 @@ export default function DropDown({
   // value,
   onChangeText,
 }) {
+  // console.log(data);
   const currentLanguage = useSelector(state => state.language.value);
   const [value, setValue] = useState(data[0]);
   // console.log(value);

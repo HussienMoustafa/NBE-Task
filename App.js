@@ -8,6 +8,7 @@ import {
   Text,
   View,
 } from 'react-native';
+import messaging from '@react-native-firebase/messaging';
 import AirPay from './screens/AirPay/AirPay';
 import Benefeciaries from './screens/Benefeciaries/Benefeciaries';
 import Finish from './screens/Finish/Finish';
@@ -38,7 +39,9 @@ import {setUserDefaultValues, setUserId} from './redux/userSlice';
 import {setBenefeciaries} from './redux/benefeciariesSlice';
 import {SheetProvider} from 'react-native-actions-sheet';
 import SplashScreen from 'react-native-splash-screen';
-import {useEffect} from 'react';
+import {useEffect, useState} from 'react';
+import NotificationController from './notification/NotificationController.android';
+import PushNotification from 'react-native-push-notification';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -408,11 +411,13 @@ const App = () => {
   useEffect(() => {
     SplashScreen.hide();
   }, []);
+
   return (
     <>
       <StatusBar hidden={true} translucent={true} />
       <Provider store={store}>
         <SheetProvider>
+          <NotificationController />
           <NavigationContainer>
             <Stack.Navigator
               screenOptions={{

@@ -5,7 +5,7 @@ const styles = StyleSheet.create({
     // flexDirection: 'row',
     // alignItems: 'center',
     // width: '100%',
-    width: 360,
+    width: 380,
     height: 90,
     borderRadius: 10,
     marginBottom: 21,
@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
     color: 'rgba(28, 36, 55, 1)',
     fontSize: 16,
     // width: '100%',
-    width: 360,
+    width: 380,
   },
 
   borderActive: {

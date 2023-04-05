@@ -1,6 +1,8 @@
 import axios from 'axios';
 import {getDownloadUrl} from '@react-native-firebase/storage';
 import storage from '@react-native-firebase/storage';
+import messaging from '@react-native-firebase/messaging';
+import {Alert} from 'react-native';
 
 const BACKEND_URL = 'https://nbe-reactnative-default-rtdb.firebaseio.com';
 
@@ -19,13 +21,76 @@ async function uploadImage(response) {
   return imgUrl;
 }
 
-export async function storeBenefeciary(benefeciaryData, response) {
-  benefeciaryData['img'] = await uploadImage(response);
-
-  axios.post(BACKEND_URL + '/Benefeciaries.json', benefeciaryData);
+export async function storeBenefeciary(benefeciaryData, res) {
+  const response = await axios.get(BACKEND_URL + '/Users.json');
+  let flag = false;
+  for (const key in response.data) {
+    if (response.data[key].phoneNumber === benefeciaryData['phoneNumber']) {
+      flag = true;
+      benefeciaryData['img'] = await uploadImage(res);
+      benefeciaryData['deviceToken'] = response.data[key].deviceToken;
+      axios.post(BACKEND_URL + '/Benefeciaries.json', benefeciaryData);
+      return flag;
+    }
+    // beneficiares.push(benefeciary);
+  }
+  if (!flag) {
+    Alert.alert(
+      'This benefeciary is not a user in our bank',
+      'Please add a valid benefeciary',
+    );
+  }
+  return flag;
 }
 
-export async function storeTransaction(transferTitle, amount, userId, benId) {
+export const sendPushNotification = async deviceToken => {
+  // console.log(deviceToken);
+  const FIREBASE_API_KEY =
+    'AAAAGae9jIs:APA91bGJOIiF2K7BqZ-HoNq3OmQ6lnUU1Vu2LdQ03phPxA5k2BaSQsNZ02RXxAa8rf9pISCVJgK6RjsYl_ufmKSCYRoScl6q2cg_x2xzEP6C9u5WnLjZoyjPu2Vj0Ut8urLEt8Nx1ctS';
+  const message = {
+    registration_ids: [
+      deviceToken,
+      // 'cAoU0XnyTgiraSDQAMd3FU:APA91bFuYqZmS5cDzx80_8K5pjlxiTEO5VnEqdA6du17AEo5bcCG74Og67bmjEXdlHu1XUKNjtoie87R2flHDdkzjnGjEKQff1_r1KpY9xj-alT6n3kw7RrJkJ3vpMLDk2fqHIXDW8UF',
+      // 'd7JHTdVMT9G3MJ3NTQZWq6:APA91bFphqziqsPqeJxyy3ulxKmSVAqtKbrsNvFCQ1NmUmkuT2GDKfbka6koxfBigDUC9sNKuTSmlo5NZc-Kmrrk49Kiq2NKfAAey2pKd3--PAwqT5M3s8gQTtvZJR6sOCbi31eFVxps',
+    ],
+    notification: {
+      title: 'Transfer',
+      body: "You've received money",
+      vibrate: 1,
+      sound: 1,
+      show_in_foreground: true,
+      priority: 'high',
+      content_available: true,
+    },
+    data: {
+      title: 'Transfer',
+      body: "You've received money",
+      score: 50,
+      wicket: 1,
+    },
+  };
+
+  let headers = new Headers({
+    'Content-Type': 'application/json',
+    Authorization: 'key=' + FIREBASE_API_KEY,
+  });
+
+  let response = await fetch('https://fcm.googleapis.com/fcm/send', {
+    method: 'POST',
+    headers,
+    body: JSON.stringify(message),
+  });
+  response = await response.json();
+  // console.log(response);
+};
+
+export async function storeTransaction(
+  transferTitle,
+  amount,
+  userId,
+  benId,
+  deviceToken,
+) {
   // console.log(transferTitle, amount, userId, benId);
   let today = new Date();
   let dd = String(today.getDate()).padStart(2, '0');
@@ -39,7 +104,9 @@ export async function storeTransaction(transferTitle, amount, userId, benId) {
     benId: benId,
     date: today,
   };
-  axios.post(BACKEND_URL + '/Transactions.json', transactionData);
+  axios
+    .post(BACKEND_URL + '/Transactions.json', transactionData)
+    .then(sendPushNotification(deviceToken));
 }
 
 export async function getTransactionsHistory(userId, benId) {
@@ -86,6 +153,7 @@ export async function getBenefeciaries(userId) {
         accountNumber: response.data[key].accountNumber,
         userId: userId,
         img: response.data[key].img,
+        deviceToken: response.data[key].deviceToken,
         //   firstName: response.data[key].firstName,
       };
       beneficiares.push(benefeciary);
@@ -116,9 +184,21 @@ export async function deleteBenefeciary(benefeciaryId, userId) {
   }
 }
 
-export function storeUser(userData, id) {
+export async function storeUser(userData, id) {
   const email = userData.email;
   const phoneNumber = email.replace('@gmail.com', '');
+  // checkToken = async () => {
+  //   // console.log(hhhhhhh);
+  //   const fcmToken = await messaging().getToken();
+  //   while (!fcmToken) {
+  //     // console.log(fcmToken);
+  //   }
+  //   return fcmToken;
+  // };
+  // const deviceToken = checkToken();
+  // let deviceToken = '';
+  // checkToken().then(console.log('hhh'));
+  const deviceToken = await messaging().getToken();
 
   const transactions = [
     {
@@ -174,6 +254,7 @@ export function storeUser(userData, id) {
     balance: 152360,
     email: email,
     phoneNumber: phoneNumber,
+    deviceToken: deviceToken,
     // cards: [],
     // img,
     transactions,
