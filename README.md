@@ -1,5 +1,6 @@
 # NBE-Task
 This is a clone of the popular NBE banking app, developed using React Native, I used:
+
     1."firebase storage" to store images, Also I created a "realtime database" to store users,benefeciaries and the transactions between the users and their benefeciaries.
     2."Firebase Authentication" for Authentication.
     3."axios" to handle HTTP requests such as fetching and submitting data to and from firebase realtime database, firebase storage and firebase authentication.
